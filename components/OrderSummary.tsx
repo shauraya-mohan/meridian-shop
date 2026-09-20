@@ -8,8 +8,7 @@ type OrderSummaryProps = {
   totals: CartTotals;
 };
 
-// useCartTotal has already applied any discount, so format the figures as-is.
-const formatAmount = (cents: number) => formatPrice(cents, 0);
+const formatAmount = (cents: number) => formatPrice(cents);
 
 export function OrderSummary({ lines, totals }: OrderSummaryProps) {
   return (
