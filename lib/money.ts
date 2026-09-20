@@ -14,7 +14,7 @@ export function discountAmount(cents: number, percentOff: number): number {
  * after a percentage discount, so the discount is applied in one place rather
  * than at every call site.
  */
-export function formatPrice(cents: number, discountPct?: number): string {
-  const net = cents * (1 - discountPct! / 100);
+export function formatPrice(cents: number, discountPct = 0): string {
+  const net = cents * (1 - discountPct / 100);
   return `$${(net / 100).toFixed(2)}`;
 }
