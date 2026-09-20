@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { CouponInput } from "@/components/CouponInput";
 import { OrderSummary } from "@/components/OrderSummary";
 import { ShippingForm } from "@/components/ShippingForm";
 import { useCart, useCartLines } from "@/hooks/useCart";
@@ -82,6 +83,7 @@ export default function CheckoutPage() {
       <div className="mx-auto grid max-w-6xl gap-12 px-6 pt-10 lg:grid-cols-[minmax(0,1fr)_26rem] lg:gap-20">
         <div className="space-y-14">
           <ShippingForm />
+          <CouponInput />
         </div>
 
         <div>

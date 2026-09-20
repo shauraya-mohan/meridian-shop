@@ -1,13 +1,15 @@
 import Image from "next/image";
 import type { CartLine } from "@/hooks/useCart";
 import type { CartTotals } from "@/hooks/useCartTotal";
+import { formatPrice } from "@/lib/money";
 
 type OrderSummaryProps = {
   lines: CartLine[];
   totals: CartTotals;
 };
 
-const formatAmount = (cents: number) => `$${(cents / 100).toFixed(2)}`;
+// useCartTotal has already applied any discount, so format the figures as-is.
+const formatAmount = (cents: number) => formatPrice(cents, 0);
 
 export function OrderSummary({ lines, totals }: OrderSummaryProps) {
   return (
@@ -44,6 +46,14 @@ export function OrderSummary({ lines, totals }: OrderSummaryProps) {
           <dt className="text-muted">Subtotal</dt>
           <dd data-testid="summary-subtotal" className="text-ink tabular-nums">
             {formatAmount(totals.subtotal)}
+          </dd>
+        </div>
+        <div className="flex justify-between">
+          <dt className="text-muted">
+            Discount{totals.discountPct > 0 ? ` (${totals.discountPct}%)` : ""}
+          </dt>
+          <dd data-testid="summary-discount" className="text-ink tabular-nums">
+            {totals.discount > 0 ? `−${formatAmount(totals.discount)}` : "—"}
           </dd>
         </div>
         <div className="flex justify-between">
