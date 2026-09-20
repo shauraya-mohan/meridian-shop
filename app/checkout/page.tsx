@@ -7,14 +7,15 @@ import { CouponInput } from "@/components/CouponInput";
 import { OrderSummary } from "@/components/OrderSummary";
 import { ShippingForm } from "@/components/ShippingForm";
 import { useCart, useCartLines } from "@/hooks/useCart";
-import { useCartTotal } from "@/hooks/useCartTotal";
+import { type AppliedCoupon, useCartTotal } from "@/hooks/useCartTotal";
 import { saveOrder } from "@/lib/storage";
 
 export default function CheckoutPage() {
   const router = useRouter();
   const { items, ready, clear } = useCart();
   const lines = useCartLines();
-  const totals = useCartTotal();
+  const [coupon, setCoupon] = useState<AppliedCoupon | null>(null);
+  const totals = useCartTotal(coupon);
   const [status, setStatus] = useState<"idle" | "placing" | "placed" | "error">("idle");
 
   async function placeOrder() {
@@ -83,7 +84,7 @@ export default function CheckoutPage() {
       <div className="mx-auto grid max-w-6xl gap-12 px-6 pt-10 lg:grid-cols-[minmax(0,1fr)_26rem] lg:gap-20">
         <div className="space-y-14">
           <ShippingForm />
-          <CouponInput />
+          <CouponInput onChange={setCoupon} />
         </div>
 
         <div>

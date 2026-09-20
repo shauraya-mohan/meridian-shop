@@ -15,6 +15,6 @@ export function discountAmount(cents: number, percentOff: number): number {
  * than at every call site.
  */
 export function formatPrice(cents: number, discountPct?: number): string {
-  const net = cents * (1 - discountPct! / 100);
+  const net = cents * (1 - (discountPct ?? 0) / 100);
   return `$${(net / 100).toFixed(2)}`;
 }
