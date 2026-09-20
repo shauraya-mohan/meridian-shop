@@ -9,12 +9,6 @@ export function discountAmount(cents: number, percentOff: number): number {
   return Math.round((cents * percentOff) / 100);
 }
 
-/**
- * Formats cents as a dollar string. Pass `discountPct` to format the amount
- * after a percentage discount, so the discount is applied in one place rather
- * than at every call site.
- */
-export function formatPrice(cents: number, discountPct?: number): string {
-  const net = cents * (1 - discountPct! / 100);
-  return `$${(net / 100).toFixed(2)}`;
+export function formatPrice(cents: number): string {
+  return `$${(cents / 100).toFixed(2)}`;
 }
